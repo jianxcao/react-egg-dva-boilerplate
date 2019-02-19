@@ -1,0 +1,28 @@
+{
+  "presets": [
+    "react", ["env", {
+      "modules": false
+    }], "react", "stage-2"
+  ],
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-class-properties",
+    "transform-object-assign",
+    "syntax-dynamic-import",
+    "transform-object-rest-spread", ["import", {
+      "libraryName": "antd",
+      "style": "css"
+    }]
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        "dynamic-import-webpack",
+        "transform-runtime",
+        "react-hot-loader/babel",
+        // "@loadable/babel-plugin"
+      ]
+    }
+  },
+  "comments": false
+}
