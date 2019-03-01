@@ -7,7 +7,7 @@ export default {
     }) {
       return [
         ...payload
-      ]
+      ];
     }
   },
   effects: {
@@ -30,8 +30,8 @@ export default {
         }, {
           text: '京东会员其实很啃爹',
           href: 'www.163.com'
-        }, ]
+        } ]
       });
     }
   }
-}
+};

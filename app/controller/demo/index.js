@@ -2,7 +2,7 @@ const seo = {
   title: 'demo',
   keywords: 'demo',
   description: 'demo'
-}
+};
 module.exports = app => {
   return class DemoController extends app.Controller {
     async index() {

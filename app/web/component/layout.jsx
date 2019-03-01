@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import HeaderComponet from './header';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 @connect(({ seo = {}}) => {
   return {
     ...seo
-  }
+  };
 })
-export default class Layout extends Component {
+class Layout extends Component {
   render() {
     if(EASY_ENV_IS_NODE) {
       return <html>
@@ -24,3 +24,4 @@ export default class Layout extends Component {
     return <div id="app"><HeaderComponet></HeaderComponet>{this.props.children}</div>;
   }
 }
+export default Layout;

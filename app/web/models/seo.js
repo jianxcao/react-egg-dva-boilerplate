@@ -5,7 +5,7 @@ export default {
     seo: {
       title: '',
       keywords: '',
-      description: '',
+      description: ''
     }
   },
   reducers: {
@@ -13,7 +13,7 @@ export default {
       return {
         ...state,
         ...payload
-      }
+      };
     }
   }
-}
+};

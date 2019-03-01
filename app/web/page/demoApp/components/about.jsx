@@ -1,19 +1,19 @@
-import React, { PureComponent } from "react";
-import { connect } from 'react-redux'
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 @connect(({ about }) => {
   return {
     about
   };
 })
-export default class About extends PureComponent {
+class About extends PureComponent {
   static async fetch({ dispatch }) {
     return dispatch({
-      type: "about/init"
+      type: 'about/init'
     });
   }
   componentDidMount () {
     this.props.dispatch({
-      type: "about/init"
+      type: 'about/init'
     });
   }
   render() {
@@ -34,3 +34,4 @@ export default class About extends PureComponent {
     );
   }
 }
+export default About;

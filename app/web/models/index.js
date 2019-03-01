@@ -1,6 +1,6 @@
 export default {
-    namespace: 'global',
-    state: {
-        hhh: 11
-    }
-}
+  namespace: 'global',
+  state: {
+    hhh: 11
+  }
+};

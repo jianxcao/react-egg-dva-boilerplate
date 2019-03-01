@@ -4,21 +4,21 @@ import About from './about';
 import Home from './home';
 
 export default [
-    {
-        path: "/about",
-        component: About
-    },
-    {
-      path: "/clientabout",
-      component: About
-    },
-    {
-        path: "/(home)*",
-        exact: true,
-        component: Home
-    },
-    {
-      path: "/clientindex",
-      component: Home
-    }
-]
+  {
+    path: '/about',
+    component: About
+  },
+  {
+    path: '/clientabout',
+    component: About
+  },
+  {
+    path: '/(home)*',
+    exact: true,
+    component: Home
+  },
+  {
+    path: '/clientindex',
+    component: Home
+  }
+];

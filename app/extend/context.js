@@ -10,19 +10,19 @@ module.exports = {
       this.body = html;
     });
   }  
-}
+};
 
 function renderPage(layout, locals, options, ctx) {
   // 支持自定义 layout html 模板
   const result = /\.(html|htm|tpl)$/.test(layout) ? this.readFile(layout) : (/\.(ejs|nunjucks)$/.test(layout) ?
-  this.readFile(layout).then(template => {
-    const viewEngine = /\.(ejs)$/.test(layout) ? 'ejs' : 'nunjucks';
-    const context = Object.assign({}, locals);
-    return ctx.renderString(template, context, {
-      viewEngine
-    });
-  }):
-  this.render(layout, locals, options));
+    this.readFile(layout).then(template => {
+      const viewEngine = /\.(ejs)$/.test(layout) ? 'ejs' : 'nunjucks';
+      const context = Object.assign({}, locals);
+      return ctx.renderString(template, context, {
+        viewEngine
+      });
+    }):
+    this.render(layout, locals, options));
   return result.then(html => {
     locals = this.normalizeLocals(locals);
     return this.app.react.resource.inject(html, options.name, locals, options);

@@ -7,7 +7,7 @@ export default {
       return {
         ...state,
         ...todo
-      }
+      };
     }
   },
   effects: {
@@ -25,7 +25,7 @@ export default {
           }],
           'total': 1
         }
-      })
+      });
     }
   }
-}
+};

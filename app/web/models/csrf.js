@@ -4,4 +4,4 @@ export default {
   state: {
     csrf: null
   }
-}
+};

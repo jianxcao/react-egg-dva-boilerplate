@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getDva } from 'asset/js/connectDva';
 // 获取this.props.dva对象
@@ -7,12 +7,12 @@ import { getDva } from 'asset/js/connectDva';
 @connect(({ newslist }) => {
   return {
     newslist
-  }
+  };
 })
-export default class Home extends PureComponent {
+class Home extends PureComponent {
   static contextTypes = {
-    router: PropTypes.object.isRequired,
- }
+    router: PropTypes.object.isRequired
+  }
   static async fetch ({ dispatch }) {
     return dispatch({
       type: 'newslist/init'
@@ -20,7 +20,7 @@ export default class Home extends PureComponent {
   }
   componentDidMount () {
     this.props.dispatch({
-      type: "newslist/init"
+      type: 'newslist/init'
     });
   }
   render () {
@@ -32,6 +32,8 @@ export default class Home extends PureComponent {
           return <li key={index}><a href={cur.text}>{cur.text}</a></li>;
         })}
       </ul>
-    </div>
+    </div>;
   }
 }
+
+export default Home;

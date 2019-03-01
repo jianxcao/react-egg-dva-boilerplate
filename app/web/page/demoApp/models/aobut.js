@@ -7,7 +7,7 @@ export default {
     }) {
       return [
         ...payload
-      ]
+      ];
     }
   },
   effects: {
@@ -30,8 +30,8 @@ export default {
         }, {
           text: '客服电话号码打不通的问题',
           href: 'www.163.com'
-        }, ]
+        } ]
       });
     }
   }
-}
+};
