@@ -1,14 +1,19 @@
 {
   "presets": [
-    "react", ["env", {
+    ["env", {
+      "targets": {
+        "browsers":  ["> 1%", "last 2 versions", "iOS >= 8", "Android >= 4", "Explorer >= 8", "Firefox >= 43", "Chrome >= 45"]
+      },
+      // "useBuiltIns": "entry",
+      "debug": false,
       "modules": false
     }], "react", "stage-2"
   ],
   "plugins": [
+    "syntax-dynamic-import",
     "transform-decorators-legacy",
     "transform-class-properties",
     "transform-object-assign",
-    "syntax-dynamic-import",
     "transform-object-rest-spread", ["import", {
       "libraryName": "antd",
       "style": "css"
@@ -17,8 +22,6 @@
   "env": {
     "development": {
       "plugins": [
-        "dynamic-import-webpack",
-        "transform-runtime",
         "react-hot-loader/babel",
         // "@loadable/babel-plugin"
       ]

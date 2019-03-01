@@ -1,38 +1,47 @@
 const path = require('path');
-const { getModelPath } = require('./utils')
+const { getModelPath } = require('./utils');
+const loaderUtils = require('loader-utils');
 module.exports = function(source) {
   this.cacheable();
   const resourcePath = this.resourcePath.replace(/\\/g, '\\\\');
   const cwd = process.cwd();
   let importModels = [];
   let strModel = [];
-
+  // 取到当前入口文件相对于编译路径的相对路径
   const relativePath = path.relative(cwd, resourcePath);
-  // 入口文件强制要求在app/web/page下
-  if (!relativePath.startsWith('app/web/page')) {
-    return '';
-  }
+  // 是否需要检测文件是否是一个入口文件，这个loaer是在config中动态注入的，理论上只有入口文件会调用这个loader
+  const options = loaderUtils.getOptions(this);
+  // 从option中取出全局参数
+  const globalModels = options.globalModels;
+  const basePageModelPath = options.basePageModelPath;
   // 导入全局包
-  // 路径写死，如果需要扩展，请在loader上加参数
-  const globalBasePath =  path.join(cwd, 'app/web/models');
-  let modelsPaths =  getModelPath(globalBasePath);
-  let res = getPathStr(globalBasePath, modelsPaths);
-  importModels = importModels.concat(res.import);
-  strModel = strModel.concat(res.name);
-
-  let curPath = path.dirname(relativePath);
-  // 在page下的models目录一层一层往上找
-  while(path.relative(curPath, 'app/web')) {
-    let basePath = path.join(cwd, curPath, 'models');
-    modelsPaths =  getModelPath(basePath);
-    res = getPathStr(cwd, modelsPaths);
+  if (globalModels) {
+    const globalBasePath =  path.join(cwd, globalModels);
+    let modelsPaths =  getModelPath(globalBasePath);
+    let res = getPathStr(globalBasePath, modelsPaths);
     importModels = importModels.concat(res.import);
     strModel = strModel.concat(res.name);
-    curPath = path.dirname(curPath);
+  }
+  if (basePageModelPath) {
+    const absPath =  path.join(cwd, basePageModelPath);
+    if (resourcePath.startsWith(absPath)) {
+      let curPath = path.dirname(relativePath);
+      while(path.relative(curPath, basePageModelPath)) {
+        let basePath = path.join(cwd, curPath, 'models');
+        modelsPaths =  getModelPath(basePath);
+        let res = getPathStr(cwd, modelsPaths);
+        importModels = importModels.concat(res.import);
+        strModel = strModel.concat(res.name);
+        curPath = path.dirname(curPath);
+      }
+    }
   }
 
-  strModel = `[${strModel.join(',')}]`
+  strModel = `[${strModel.join(',')}]`;
+  const polyfill = options.polyfill ? 'import \'babel-polyfill\';' : '';
+  // console.log('polyfill', polyfill);
   const stri = `
+    ${polyfill}
     const connectDva = require('asset/js/connectDva');
     const resource = require('${resourcePath}');
     ${importModels.join(';')};
@@ -45,7 +54,7 @@ module.exports = function(source) {
 function getPathStr (basePath, modelsPaths) {
   return modelsPaths.reduce((res, cur) => {
     const name = cur.replace(basePath, '')
-    .replace(/\//g, '$').replace('.', '$');
+      .replace(/\//g, '$').replace('.', '$');
     res.name.push(name);
     res.import.push(`import ${name} from '${cur}'`);
     return res;
@@ -53,4 +62,4 @@ function getPathStr (basePath, modelsPaths) {
     name: [],
     import: []
   });
-}
+};

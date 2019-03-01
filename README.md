@@ -6,6 +6,11 @@
 1. 编译采用[easywebpack](https://www.yuque.com/easy-team/easywebpack/home)
 2. 编译中有自定义loader `/app/web/frmework/entry/lientloader|serverloader`,loader的主要作用是创建dva对象，并加载每个page下面的models目录，还有全局的models目录 
 
+#### loader参数说明
+1. globalModels 全局model的路径
+2. basePageModelPath 所有页面的基础路径
+3. polyfill 是否注入polyfill
+
 ### 全局变量说明
 
 1. EASY_ENV_IS_PROD， 是否是线上环境

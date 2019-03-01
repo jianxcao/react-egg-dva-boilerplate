@@ -3,11 +3,11 @@ import Layout from '../../component/layout.jsx';
 // import List from './componets/list';
 import './styles/index.css';
 import { connect } from 'react-redux';
-import loadable from '@loadable/component'
+import loadable from '@loadable/component';
 import { getDva } from 'asset/js/connectDva';
 
 // 懒加载
-const List = loadable(() => import('./componets/list'))
+const List = loadable(() => import('./componets/list'));
 
 @getDva
 @connect(({ app }) => {
@@ -49,6 +49,6 @@ export const dvaOpt = {
     return next => action => {
       // console.dir(action);
       return next(action);
-    }
+    };
   }
-}
+};
