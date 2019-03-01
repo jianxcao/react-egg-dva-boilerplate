@@ -1,7 +1,7 @@
 'use strict';
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class List extends Component {
+export default class List extends React.PureComponent  {
   componentDidMount() {
     console.log('----List componentDidMount-----', this.props);
     window.addEventListener('scroll', ()=>{

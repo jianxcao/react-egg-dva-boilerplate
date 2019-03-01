@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import HeaderComponet from './header';
 import { connect } from 'react-redux';
 @connect(({ seo = {}}) => {
@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
     ...seo
   };
 })
-class Layout extends Component {
+class Layout extends React.PureComponent {
   render() {
     if(EASY_ENV_IS_NODE) {
       return <html>

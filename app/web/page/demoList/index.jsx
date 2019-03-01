@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Layout from '../../component/layout.jsx';
 // import List from './componets/list';
 import './styles/index.css';
@@ -16,7 +16,7 @@ const List = loadable(() => import('./componets/list'));
     total: app.total
   };
 })
-class ListIndex extends Component {
+class ListIndex extends React.PureComponent {
   constructor(...arg) {
     super(...arg);
   }
