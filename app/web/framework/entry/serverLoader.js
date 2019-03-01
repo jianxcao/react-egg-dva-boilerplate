@@ -53,9 +53,10 @@ module.exports = function(source) {
 
 function getPathStr (basePath, modelsPaths) {
   return modelsPaths.reduce((res, cur) => {
-    const name = cur.replace(basePath, '')
-      .replace(/\//g, '$').replace('.', '$');
+    const name = path.relative(basePath, cur)
+      .replace(/\/|\\/g, '$').replace('.', '$');
     res.name.push(name);
+    cur = cur.replace(/\\/g, '\\\\');
     res.import.push(`import ${name} from '${cur}'`);
     return res;
   }, {
