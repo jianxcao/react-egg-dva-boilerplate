@@ -3,7 +3,7 @@ const { getModelPath } = require('./utils');
 const loaderUtils = require('loader-utils');
 module.exports = function(source) {
   this.cacheable();
-  const resourcePath = this.resourcePath.replace(/\\/g, '\\\\');
+  const resourcePath = this.resourcePath;
   const cwd = process.cwd();
   let importModels = [];
   let strModel = [];
@@ -39,11 +39,10 @@ module.exports = function(source) {
 
   strModel = `[${strModel.join(',')}]`;
   const polyfill = options.polyfill ? 'import \'babel-polyfill\';' : '';
-  // console.log('polyfill', polyfill);
   const stri = `
     ${polyfill}
     const connectDva = require('asset/js/connectDva');
-    const resource = require('${resourcePath}');
+    const resource = require('${resourcePath.replace(/\\/g, '\\\\')}');
     ${importModels.join(';')};
     const models = ${strModel};
     export default connectDva['default'](models, resource.dvaOpt, resource.routers)(resource['default']);
@@ -57,7 +56,7 @@ function getPathStr (basePath, modelsPaths) {
       .replace(/\/|\\/g, '$').replace('.', '$');
     res.name.push(name);
     cur = cur.replace(/\\/g, '\\\\');
-    res.import.push(`import ${name} from '${cur}'`);
+    res.import.push(`import ${name} from '${cur.replace(/\\/g, '\\\\')}'`);
     return res;
   }, {
     name: [],
