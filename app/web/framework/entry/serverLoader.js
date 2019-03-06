@@ -47,6 +47,7 @@ module.exports = function(source) {
     const models = ${strModel};
     export default connectDva['default'](models, resource.dvaOpt, resource.routers)(resource['default']);
   `;
+  this.resourcePath = path.dirname(this.resourcePath) + '/source.'+ path.basename(this.resourcePath);
   return stri;
 };
 
